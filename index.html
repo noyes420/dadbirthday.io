@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 55th Birthday Dad!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .message {
+            font-size: 4em;
+            letter-spacing: 10px;
+            margin-bottom: 30px;
+            perspective: 1000px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .message span {
+            opacity: 0;
+            display: inline-block;
+            transform: rotateX(60deg);
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+            transform-origin: bottom;
+            color: #FFD700;
+            animation: appear 1.5s forwards ease-in-out;
+            margin: 0 5px;
+        }
+
+        .message .newline {
+            width: 100%;
+            height: 20px;
+        }
+
+        @keyframes appear {
+            to {
+                opacity: 1;
+                transform: rotateX(0deg);
+            }
+        }
+
+        .cake {
+            width: 250px;
+            height: 350px;
+            position: relative;
+            opacity: 0;
+            transform: rotateY(30deg);
+            transform-origin: bottom;
+            animation: fadeInCake 2s forwards ease-in-out;
+        }
+
+        .cake-layer {
+            position: absolute;
+            width: 100%;
+            background-color: pink;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 5px solid #ff80ab;
+        }
+
+        .cake-layer.bottom {
+            height: 60%;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .cake-layer.middle {
+            height: 25%;
+            bottom: 60%;
+            z-index: 2;
+        }
+
+        .cake-layer.top {
+            height: 15%;
+            bottom: 85%;
+            z-index: 3;
+        }
+
+        .cake-layer::before {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 20%;
+            background-color: #FFB6C1;
+            border-radius: 10px;
+            left: 5%;
+            top: -15%;
+            box-shadow: inset 0 4px 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .candles {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+        }
+
+        .candle {
+            width: 10px;
+            height: 50px;
+            background-color: white;
+            border-radius: 5px;
+            position: relative;
+            border: 2px solid #ccc;
+        }
+
+        .candle .stripes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                white,
+                white 2px,
+                #ccc 2px,
+                #ccc 4px
+            );
+            border-radius: 5px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            background-color: orange;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        }
+
+        .number {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4em;
+            color: white;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .cake-number {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4em;
+            color: #FFD700;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+            z-index: 5;
+        }
+
+        @keyframes fadeInCake {
+            to {
+                opacity: 1;
+                transform: rotateY(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message"></div>
+    <div class="cake">
+        <div class="candles">
+            <div class="candle"><div class="stripes"></div><div class="flame"></div></div>
+            <div class="candle"><div class="stripes"></div><div class="flame"></div></div>
+            <div class="candle"><div class="stripes"></div><div class="flame"></div></div>
+        </div>
+        <div class="cake-number">55</div>
+        <div class="cake-layer top"></div>
+        <div class="cake-layer middle"></div>
+        <div class="cake-layer bottom"></div>
+        <div class="number">55</div>
+    </div>
+
+    <script>
+        const messageText = "Happy 55th Birthday Dad!";
+        const messageDiv = document.querySelector('.message');
+        const cakeDiv = document.querySelector('.cake');
+        
+        function animateText() {
+            const words = messageText.split(' ');
+            let index = 0;
+
+            words.forEach((word, wordIndex) => {
+                word.split('').forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.animationDelay = `${index * 0.4}s`;
+                    messageDiv.appendChild(span);
+                    index++;
+                });
+
+                if (wordIndex < words.length - 1) {
+                    // Add a space between words
+                    const space = document.createElement('span');
+                    space.style.width = '20px';
+                    messageDiv.appendChild(space);
+                }
+
+                if (word === "Dad!") {
+                    // Add a newline before "Dad!"
+                    const newline = document.createElement('div');
+                    newline.classList.add('newline');
+                    messageDiv.appendChild(newline);
+                }
+            });
+        }
+
+        function animateCake() {
+            setTimeout(() => {
+                cakeDiv.style.opacity = 1;
+            }, messageText.length * 400 + 1000);
+        }
+
+        animateText();
+        animateCake();
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
